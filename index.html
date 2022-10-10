@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Country API</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container"></div>
+    <script>
+        const container = document.querySelector('.container');
+
+        const request = new XMLHttpRequest();
+        request.open('GET', 'https://restcountries.com/v2/name/japan');
+        request.send();
+
+        request.addEventListener('load', function () {
+            // console.log(this.responseText);
+            const [data] = JSON.parse(this.responseText);
+            // console.log(data.capital);
+            const htmlData = `
+            <div id="card">
+                <article class="card">
+                    <div class="cardImg">
+                        <img src="${data.flag}" alt="" srcset="" >
+                    </div>
+                    <br>    
+                    <div class="cardMain">
+                        <h1 class="card-title">${data.name}</h1>
+                        <p class="card-sub-title">${data.capital}</p>   
+                    </div>
+                    <br>
+                    <div class="cardFooter">
+                        <div class="cardFootername">
+                            <h3>${data.nativeName}</h3>
+                            <p>Native name</p>
+                        </div>
+                        <div class="cardFootername">
+                            <h3>${data.population}</h3>
+                            <p>Population</p>
+                        </div>
+                        <div class="cardFootername">
+                            <h3>${data.demonym}</h3>
+                            <p>Demonym</p>
+                        </div>
+                    </div>
+                </article>    
+            </div>
+
+            `;
+
+            container.insertAdjacentHTML("afterbegin", htmlData);
+        });
+
+
+    </script>
+</body>
+
+</html>
